@@ -14,7 +14,6 @@ export default class Tile extends Component {
 
 	render() {
 		const pokemon = this.state.pokemon;
-		pokemon.types ? console.log(pokemon.types[0].type.name) : console.log('not ready dude');
 		return (
 			<div className="pokemon-card-container">
 				<div className="pokemon-card">
