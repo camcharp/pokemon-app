@@ -1,11 +1,19 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import Tile from './Tile';
+import axios from 'axios';
 
 export default class Board extends Component {
-    render() {
-        return (
-            <div>
-                <h1>Pokemon App</h1>
-            </div>
-        )
-    }
+	state = {
+		pokemons: []
+	};
+
+	componentDidMount() {
+		axios.get(`https://pokeapi.co/api/v2/pokemon`).then((res) => {
+			this.setState({ pokemons :res.data.results });
+		});
+	}
+
+	render() {
+		return <ul>{this.state.pokemons.map((person,index) => <li key={index}>{person.name}</li>)}</ul>;
+	}
 }
