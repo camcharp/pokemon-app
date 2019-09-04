@@ -13,7 +13,7 @@
 }
 
 .pokemon-card-container {
-	background: linear-gradient(to right, yellow, tomato);
+	background: linear-gradient(to right, lightgrey, grey);
 	width: 250px;
 	height: 350px;
 	margin: 3%;
@@ -29,7 +29,7 @@
 
 .background {
 	text-align: center;
-	background: linear-gradient(to right, yellow, tomato);
+	background: linear-gradient(to right, lightgrey, grey);
 	border-top-right-radius: 10px;
 	border-top-left-radius: 10px;
 }
@@ -40,7 +40,7 @@ img {
 }
 
 .content {
-	background: linear-gradient(to right, yellow, tomato);
+	background: linear-gradient(to right, lightgrey, grey);
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
 }

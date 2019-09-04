@@ -14,15 +14,16 @@ export default class Tile extends Component {
 
 	render() {
 		const pokemon = this.state.pokemon;
+		pokemon.types ? console.log(pokemon.types[0].type.name) : console.log('not ready dude');
 		return (
 			<div className="pokemon-card-container">
 				<div className="pokemon-card">
 					<div className="background">
-						{this.state.pokemon.sprites ? <img src={pokemon.sprites.front_default} alt="pokemon" /> : null}
+						{pokemon.sprites ? <img src={pokemon.sprites.front_default} alt="pokemon-sprite" /> : null}
 					</div>
 					<div className="content">
 						<h1 className="pokemon-name">{pokemon.name}</h1>
-						<span className="pokemon-type" />
+						{pokemon.types ? <p className="pokemon-type">{pokemon.types[0].type.name} </p> : null}
 					</div>
 					<div className="pokemon-stats">
 						<p>Power: 74</p>
