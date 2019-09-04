@@ -9,7 +9,6 @@ export default class Tile extends Component {
 			frontCard: true
 		};
 		this.displayPokemonDetails = this.displayPokemonDetails.bind(this);
-		
 	}
 
 	componentDidMount() {
@@ -36,24 +35,20 @@ export default class Tile extends Component {
 							{pokemon.types ? <p className="pokemon-type">{pokemon.types[0].type.name} </p> : null}
 						</div>
 						<div className="pokemon-stats">
-							<p>Power: 74</p>
-							<p>Damage: 78</p>
-							<p>Attack: electro ball</p>
-							<p>Friendly:81</p>
+							{pokemon.stats ? (
+								pokemon.stats.map((stat) => (
+									<p key={stat.stat.name}>
+										{stat.stat.name}: {stat.base_stat}
+									</p>
+								))
+							) : null}
 						</div>
 					</div>
 				)}
 				{!this.state.frontCard && (
 					<div className="pokemon-card">
-						<div className="background">
-							{pokemon.sprites ? <img src={pokemon.sprites.front_default} alt="pokemon-sprite" /> : null}
-						</div>
-						<div className="content">
+						<div className="content-reverse">
 							<h1 className="pokemon-name">{pokemon.name}</h1>
-							{pokemon.types ? <p className="pokemon-type">{pokemon.types[0].type.name} </p> : null}
-						</div>
-						<div className="pokemon-stats">
-							<p>BACK SIDE</p>
 						</div>
 					</div>
 				)}

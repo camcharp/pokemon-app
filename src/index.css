@@ -36,6 +36,13 @@
 	border-top-left-radius: 10px;
 }
 
+.background-reverse {
+	text-align: center;
+	background: grey;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
 img {
 	width: 200px;
 	height: 200px;
@@ -43,6 +50,12 @@ img {
 
 .content {
 	background: linear-gradient(to right, lightgrey, grey);
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.content-reverse {
+	background: grey;
 	border-bottom-right-radius: 10px;
 	border-bottom-left-radius: 10px;
 }
@@ -82,7 +95,6 @@ img {
 	float: left;
 	padding: 8px 16px;
 	text-decoration: none;
-	transition: background-color .3s;
 	border: 1px solid #ddd;
 	margin: 0;
 }

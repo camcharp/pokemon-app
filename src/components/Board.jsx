@@ -10,10 +10,9 @@ export default class Board extends Component {
 			pokemons: [],
 			next: null,
 			previous: null
-        };
-		this.handlePreviousClick = this.handlePreviousClick.bind(this);        
+		};
+		this.handlePreviousClick = this.handlePreviousClick.bind(this);
 		this.handleNextClick = this.handleNextClick.bind(this);
-
 	}
 
 	componentDidMount() {
@@ -36,17 +35,25 @@ export default class Board extends Component {
 		e.preventDefault();
 		axios.get(this.state.next).then((res) => this.getNewPokemons(res));
 		this.setState({ state: this.state });
-    }
+	}
 
 	render() {
 		console.log(this.state);
 		return (
 			<React.Fragment>
-				<Pagination data={this.state} handlePreviousClick={this.handlePreviousClick} handleNextClick={this.handleNextClick} />
+				<Pagination
+					data={this.state}
+					handlePreviousClick={this.handlePreviousClick}
+					handleNextClick={this.handleNextClick}
+				/>
 				<div className="big-container">
 					{this.state.pokemons.map((pokemon, index) => <Tile key={pokemon.name} data={pokemon} />)}
 				</div>
-				<Pagination data={this.state} handlePreviousClick={this.handlePreviousClick} handleNextClick={this.handleNextClick} />
+				<Pagination
+					data={this.state}
+					handlePreviousClick={this.handlePreviousClick}
+					handleNextClick={this.handleNextClick}
+				/>
 			</React.Fragment>
 		);
 	}
