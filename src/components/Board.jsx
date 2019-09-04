@@ -13,6 +13,7 @@ export default class Board extends Component {
         };
 		this.handlePreviousClick = this.handlePreviousClick.bind(this);        
 		this.handleNextClick = this.handleNextClick.bind(this);
+
 	}
 
 	componentDidMount() {
@@ -35,7 +36,7 @@ export default class Board extends Component {
 		e.preventDefault();
 		axios.get(this.state.next).then((res) => this.getNewPokemons(res));
 		this.setState({ state: this.state });
-	}
+    }
 
 	render() {
 		console.log(this.state);
