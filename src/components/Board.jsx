@@ -9,11 +9,15 @@ export default class Board extends Component {
 
 	componentDidMount() {
 		axios.get(`https://pokeapi.co/api/v2/pokemon`).then((res) => {
-			this.setState({ pokemons :res.data.results });
+			this.setState({ pokemons: res.data.results });
 		});
 	}
 
 	render() {
-		return <ul>{this.state.pokemons.map((person,index) => <li key={index}>{person.name}</li>)}</ul>;
+		return (
+			<div className="big-container">
+				{this.state.pokemons.map((pokemon, index) => <Tile key={index} data={pokemon} />)}
+			</div>
+		);
 	}
 }
