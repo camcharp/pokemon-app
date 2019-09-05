@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Tile2 from './Tile2';
+import Tile from './Tile';
 import Pagination from './Pagination';
 import axios from 'axios';
 
@@ -8,11 +8,14 @@ export default class Board extends Component {
 		super(props);
 		this.state = {
 			pokemons: [],
+			likedPokemons: [],
 			next: null,
 			previous: null
 		};
 		this.handlePreviousClick = this.handlePreviousClick.bind(this);
 		this.handleNextClick = this.handleNextClick.bind(this);
+		this.addFavouritePokemon = this.addFavouritePokemon.bind(this);
+		this.removeFavouritePokemon = this.removeFavouritePokemon.bind(this);
 	}
 
 	componentDidMount() {
@@ -37,6 +40,20 @@ export default class Board extends Component {
 		this.setState({ state: this.state });
 	}
 
+	addFavouritePokemon = (e, pokemon) => {
+		e.preventDefault();
+		let likedPokemonsCopy = [ ...this.state.likedPokemons ];
+		if (!likedPokemonsCopy.includes(pokemon)) likedPokemonsCopy.push(pokemon);
+		this.setState({ likedPokemons: likedPokemonsCopy });
+	};
+
+	removeFavouritePokemon = (e, pokemon) => {
+		e.preventDefault();
+		let likedPokemonsCopy = [ ...this.state.likedPokemons ];
+		// TO DO 
+		this.setState({ likedPokemons: likedPokemonsCopy });
+	};
+
 	render() {
 		console.log(this.state);
 		return (
@@ -47,7 +64,9 @@ export default class Board extends Component {
 					handleNextClick={this.handleNextClick}
 				/>
 				<div className="big-container">
-					{this.state.pokemons.map((pokemon, index) => <Tile2 key={pokemon.name} data={pokemon} />)}
+					{this.state.pokemons.map((pokemon) => (
+						<Tile key={pokemon.name} data={pokemon} addFavouritePokemon={this.addFavouritePokemon} />
+					))}
 				</div>
 				<Pagination
 					data={this.state}

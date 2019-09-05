@@ -2,7 +2,11 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: content-box;
-	font-family: 'Manjari', sans-serif;
+	/* font-family: 'Manjari', sans-serif; */
+}
+
+.icons {
+	font-family: sans-serif;
 }
 
 /*                 POKEMON CARD                       */
