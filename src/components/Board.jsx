@@ -8,24 +8,42 @@ export default class Board extends Component {
 		super(props);
 		this.state = {
 			pokemons: [],
+			pokemonsLoaded: [],
 			likedPokemons: [],
 			next: null,
 			previous: null
 		};
+		this.getNewPokemons = this.getNewPokemons.bind(this);
 		this.handlePreviousClick = this.handlePreviousClick.bind(this);
 		this.handleNextClick = this.handleNextClick.bind(this);
 		this.addFavouritePokemon = this.addFavouritePokemon.bind(this);
 		this.removeFavouritePokemon = this.removeFavouritePokemon.bind(this);
 	}
 
-	componentDidMount() {
-		axios.get(`https://pokeapi.co/api/v2/pokemon`).then((res) => {
-			this.setState({ pokemons: res.data.results, next: res.data.next, previous: res.data.previous });
+	getNewPokemons(res) {
+		let pokemonsLoadedCopy = [ ...this.state.pokemonsLoaded ];
+		console.log(this.state.pokemons);
+		console.log(this.state.pokemonsLoaded);
+		console.log(pokemonsLoadedCopy);
+		if (!this.state.pokemonsLoaded.includes(this.state.pokemons)) {
+			pokemonsLoadedCopy.push(this.state.pokemons);
+			this.setState({ pokemonsLoaded: pokemonsLoadedCopy });
+		}
+		this.setState({
+			pokemons: res.data.results,
+			next: res.data.next,
+			previous: res.data.previous
 		});
+		console.log('this.state.pokemons' + JSON.stringify(this.state.pokemons));
+		console.log('this.state.pokemonsLoaded' + JSON.stringify(this.state.pokemonsLoaded));
+		console.log('copy' + pokemonsLoadedCopy);
 	}
 
-	getNewPokemons(res) {
-		this.setState({ pokemons: res.data.results, next: res.data.next, previous: res.data.previous });
+	componentDidMount() {
+		axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`).then((res) => {
+			this.setState({ pokemons: res.data.results, next: res.data.next, previous: res.data.previous });
+			this.getNewPokemons(res);
+		});
 	}
 
 	handlePreviousClick(e) {
@@ -58,7 +76,7 @@ export default class Board extends Component {
 	render() {
 		console.log(this.state);
 		return (
-			<React.Fragment>
+			<div className="page-wrapper">
 				<Pagination
 					data={this.state}
 					handlePreviousClick={this.handlePreviousClick}
@@ -79,7 +97,7 @@ export default class Board extends Component {
 					handlePreviousClick={this.handlePreviousClick}
 					handleNextClick={this.handleNextClick}
 				/>
-			</React.Fragment>
+			</div>
 		);
 	}
 }

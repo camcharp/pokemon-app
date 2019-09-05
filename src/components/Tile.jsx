@@ -41,7 +41,7 @@ export default class Tile extends Component {
 		const pokemon = this.state.pokemon;
 		let cardClasses = this.state.cardClasses.join(' ');
 		return (
-			<div>
+			<React.Fragment>
 				{this.state.liked ? (
 					<i className="fa fa-heart" onClick={this.handleFavourite} />
 				) : (
@@ -84,7 +84,7 @@ export default class Tile extends Component {
 						</div>
 					)}
 				</div>
-			</div>
+			</React.Fragment>
 		);
 	}
 }
