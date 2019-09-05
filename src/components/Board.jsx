@@ -50,7 +50,8 @@ export default class Board extends Component {
 	removeFavouritePokemon = (e, pokemon) => {
 		e.preventDefault();
 		let likedPokemonsCopy = [ ...this.state.likedPokemons ];
-		// TO DO
+		let index = likedPokemonsCopy.indexOf(pokemon); // find pokemon in array
+		if (index > -1) likedPokemonsCopy.splice(index, 1);
 		this.setState({ likedPokemons: likedPokemonsCopy });
 	};
 
