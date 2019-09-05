@@ -50,7 +50,7 @@ export default class Board extends Component {
 	removeFavouritePokemon = (e, pokemon) => {
 		e.preventDefault();
 		let likedPokemonsCopy = [ ...this.state.likedPokemons ];
-		// TO DO 
+		// TO DO
 		this.setState({ likedPokemons: likedPokemonsCopy });
 	};
 
@@ -65,7 +65,12 @@ export default class Board extends Component {
 				/>
 				<div className="big-container">
 					{this.state.pokemons.map((pokemon) => (
-						<Tile key={pokemon.name} data={pokemon} addFavouritePokemon={this.addFavouritePokemon} />
+						<Tile
+							key={pokemon.name}
+							data={pokemon}
+							addFavouritePokemon={this.addFavouritePokemon}
+							removeFavouritePokemon={this.removeFavouritePokemon}
+						/>
 					))}
 				</div>
 				<Pagination

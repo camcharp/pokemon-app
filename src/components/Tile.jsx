@@ -28,27 +28,26 @@ export default class Tile extends Component {
 
 	handleFavourite = (e) => {
 		console.log('handleFavourite called');
-		this.props.addFavouritePokemon(e,this.state.pokemon);
+		if (this.state.liked) {
+			this.props.removeFavouritePokemon(e, this.state.pokemon);
+			this.setState({ liked: false });
+		} else {
+			this.props.addFavouritePokemon(e, this.state.pokemon);
+			this.setState({ liked: true });
+		}
 	};
 
 	render() {
 		const pokemon = this.state.pokemon;
 		let cardClasses = this.state.cardClasses.join(' ');
-		const { currentPokemon } = this.state.pokemon;
 		return (
 			<div>
 				{this.state.liked ? (
-					<div>
-						<button onClick={this.props.addFavouritePokemon}>
-							<i className="fa fa-heart" />
-						</button>
-					</div>
+					<i className="fa fa-heart" onClick={this.handleFavourite} />
 				) : (
-					<a href="http">
-						<i className="fa fa-heart-o" />
-					</a>
+					<i className="fa fa-heart-o" onClick={this.handleFavourite} />
 				)}
-				<button onClick={this.handleFavourite}>CLICK</button>
+
 				<div className={cardClasses} onClick={this.flipCard}>
 					{pokemon.sprites &&
 					pokemon.types &&
