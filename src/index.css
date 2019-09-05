@@ -2,6 +2,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: content-box;
+	font-family: 'Manjari', sans-serif;
 }
 
 /*                 POKEMON CARD                       */
@@ -11,73 +12,81 @@
 	flex-direction: row;
 	justify-content: center;
 	flex-wrap: wrap;
-	margin: 2%;
+	margin: 5%;
 }
 
-.pokemon-card-container {
-	background: linear-gradient(to right, lightgrey, grey);
+.card {
 	width: 250px;
 	height: 350px;
-	margin: 3%;
-	padding: 10px;
 	border-radius: 15px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.pokemon-card-container:hover {
 	cursor: pointer;
-	box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	transition: transform .7s;
+	transform-style: preserve-3d;
+	position: relative;
+	padding: 5px;
+	margin: 1%;
 }
 
-.background {
+.card.flipped {
+	transform: rotateY(180deg);
+}
+
+.face {
+	position: absolute;
+	width: 250px;
+	height: 350px;
+	color: white;
 	text-align: center;
-	background: linear-gradient(to right, lightgrey, grey);
-	border-top-right-radius: 10px;
-	border-top-left-radius: 10px;
+	font-weight: bold;
+	backface-visibility: hidden;
 }
 
-.background-reverse {
-	text-align: center;
-	background: grey;
-	border-top-right-radius: 10px;
-	border-top-left-radius: 10px;
+.face h1 {
+	padding-top: 25%;
+	font-size: 1.7rem;
 }
 
-img {
+.face img {
 	width: 200px;
 	height: 200px;
 }
 
-.content {
-	background: linear-gradient(to right, lightgrey, grey);
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
+.front {
+	background: linear-gradient(175deg, rgba(87,93,93,1) 0%, rgba(151,157,157,1) 100%);
+	border-radius: 10px;
 }
 
-.content-reverse {
-	background: grey;
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
+.back {
+	background: linear-gradient(175deg, rgba(87,93,93,1) 0%, rgba(129,135,135,1) 100%);
+	border-radius: 10px;
+	transform: rotateY(180deg);
 }
 
-.pokemon-name {
-	text-align: center;
-	font-size: 1.5rem;
-	font-weight: lighter;
-	padding: 10px;
+.stats-name{
+	text-align: left;
+	padding: 0 5%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
-.pokemon-type {
-	background-color: black;
-	color: white;
-	padding: 7px;
-	border-radius: 5px;
-	display: block;
-	text-align: center;
+.face h1 {
+	padding-top: 5%;
+	font-size: 1.7rem;
 }
 
-.pokemon-stats > p {
-	letter-spacing: 1px;
+
+.img-back {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	border-radius: 15px 15px 0 0px;
+}
+
+.img-back img {
+	width: 120px;
+	height: 120px;
 }
 
 /*                 PAGINATION                      */

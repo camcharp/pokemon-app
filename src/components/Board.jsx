@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Tile from './Tile';
+import Tile2 from './Tile2';
 import Pagination from './Pagination';
 import axios from 'axios';
 
@@ -47,7 +47,7 @@ export default class Board extends Component {
 					handleNextClick={this.handleNextClick}
 				/>
 				<div className="big-container">
-					{this.state.pokemons.map((pokemon, index) => <Tile key={pokemon.name} data={pokemon} />)}
+					{this.state.pokemons.map((pokemon, index) => <Tile2 key={pokemon.name} data={pokemon} />)}
 				</div>
 				<Pagination
 					data={this.state}

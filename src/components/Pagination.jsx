@@ -2,10 +2,8 @@ import React from 'react';
 
 export default function Pagination(props) {
 	if (props.data !== null) {
-		console.log('props data???' + props.data.previous);
 		return (
 			<React.Fragment>
-				(
 				<div className="center">
 					<div className="pagination">
 						<a href={props.data.previous} className="previous" onClick={props.handlePreviousClick}>
@@ -16,7 +14,6 @@ export default function Pagination(props) {
 						</a>
 					</div>
 				</div>
-				)
 			</React.Fragment>
 		);
 	} else return null;
