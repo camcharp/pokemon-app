@@ -63,12 +63,21 @@
 	transform: rotateY(180deg);
 }
 
+.pokemon-stats{
+	padding: 7%;
+	font-size: 1rem;
+}
+
 .stats-name{
 	text-align: left;
 	padding: 0 5%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+}
+
+.move{
+	font-size: 1rem;
 }
 
 .face h1 {
@@ -85,8 +94,8 @@
 }
 
 .img-back img {
-	width: 120px;
-	height: 120px;
+	width: 100px;
+	height: 100px;
 }
 
 /*                 PAGINATION                      */

@@ -29,35 +29,35 @@ export default class Tile2 extends Component {
 		let cardClasses = this.state.cardClasses.join(' ');
 		return (
 			<div className={cardClasses} onClick={this.flipCard}>
-				{this.state.frontCard && (
+				{pokemon.sprites &&
+				pokemon.types &&
+				pokemon.stats &&
+				pokemon.moves &&
+				this.state.frontCard && (
 					<div className="face front">
-						{pokemon.sprites ? <img src={pokemon.sprites.front_default} alt="pokemon-sprite" /> : null}
-
+						<img src={pokemon.sprites.front_default} alt="pokemon-sprite" />
 						<h1 className="pokemon-name">{pokemon.name}</h1>
-						{pokemon.types ? <p className="pokemon-type">{pokemon.types[0].type.name} </p> : null}
-
+						<p className="pokemon-type">{pokemon.types[0].type.name} </p>
 						<div className="pokemon-stats" />
 					</div>
 				)}
 				{!this.state.frontCard && (
 					<div className="face back">
-						{pokemon.sprites ? (
-							<div className="img-back">
-								<img src={pokemon.sprites.front_default} alt="pokemon-sprite" />
-								<img src={pokemon.sprites.back_default} alt="pokemon-sprite" />
-							</div>
-						) : null}
+						<div className="img-back">
+							<img src={pokemon.sprites.front_default} alt="pokemon-sprite" />
+							<img src={pokemon.sprites.back_default} alt="pokemon-sprite" />
+						</div>
 						<h1 className="pokemon-name">{pokemon.name}</h1>
-						{pokemon.types ? <p className="pokemon-type">{pokemon.types[0].type.name} </p> : null}
-
+						<p className="pokemon-type">{pokemon.types[0].type.name} </p>
 						<div className="pokemon-stats">
-							{pokemon.stats ? (
-								pokemon.stats.map((stat) => (
-									<p className="stats-name" key={stat.stat.name}>
-										<p>{stat.stat.name}:</p> <p className="stats-base">{stat.base_stat}</p>
-									</p>
-								))
-							) : null}
+							{pokemon.stats.map((stat) => (
+								<p className="stats-name" key={stat.stat.name}>
+									<p>{stat.stat.name}</p> <p className="stats-base">{stat.base_stat}</p>
+								</p>
+							))}
+						</div>
+						<div className="pokemon-move">
+							{pokemon.moves ? <p className="move">special move: {pokemon.moves[0].move.name}</p> : null}
 						</div>
 					</div>
 				)}
