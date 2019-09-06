@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import Tile from './Tile';
+import Header from './Header';
 import Pagination from './Pagination';
+import Tile from './Tile';
+import TileFavourite from './TileFavourite';
 import axios from 'axios';
 
 export default class Board extends Component {
@@ -10,9 +12,11 @@ export default class Board extends Component {
 			pokemons: [],
 			likedPokemons: [],
 			next: null,
-			previous: null
+			previous: null,
+			view: 1
 		};
 		this.getNewPokemons = this.getNewPokemons.bind(this);
+		this.changeView = this.changeView.bind(this);
 		this.handlePreviousClick = this.handlePreviousClick.bind(this);
 		this.handleNextClick = this.handleNextClick.bind(this);
 		this.addFavouritePokemon = this.addFavouritePokemon.bind(this);
@@ -40,6 +44,17 @@ export default class Board extends Component {
 		this.setState({ state: this.state });
 	}
 
+	changeView(e) {
+		e.preventDefault();
+		if (this.state.view === 1) {
+			console.log('state' + this.state.view);
+			this.setState({ view: 2 });
+		} else if (this.state.view === 2) {
+			this.setState({ view: 1 });
+			console.log('state' + this.state.view);
+		}
+	}
+
 	handleNextClick(e) {
 		e.preventDefault();
 		axios.get(this.state.next).then((res) => this.getNewPokemons(res));
@@ -65,24 +80,40 @@ export default class Board extends Component {
 	};
 
 	render() {
+		console.log(this.state.view);
+
 		return (
 			<div className="page-wrapper">
+				<Header changeView={this.changeView} />
 				<Pagination
 					data={this.state}
 					handlePreviousClick={this.handlePreviousClick}
 					handleNextClick={this.handleNextClick}
 				/>
 				<div className="big-container">
-					{this.state.pokemons.map((pokemon) => (
-						<Tile
-							likedPokemons={this.state.likedPokemons}
-							key={pokemon.url}
-							data={pokemon}
-							addFavouritePokemon={this.addFavouritePokemon}
-							removeFavouritePokemon={this.removeFavouritePokemon}
-						/>
-					))}
+					{this.state.view === 1 &&
+						this.state.pokemons.map((pokemon) => (
+							<Tile
+								likedPokemons={this.state.likedPokemons}
+								key={pokemon.url}
+								data={pokemon}
+								addFavouritePokemon={this.addFavouritePokemon}
+								removeFavouritePokemon={this.removeFavouritePokemon}
+							/>
+						))}
+					{this.state.view === 2 &&
+						this.state.likedPokemons &&
+						this.state.likedPokemons.map((pokemon) => (
+							<TileFavourite
+								likedPokemons={this.state.likedPokemons}
+								key={pokemon.url}
+								data={pokemon}
+								addFavouritePokemon={this.addFavouritePokemon}
+								removeFavouritePokemon={this.removeFavouritePokemon}
+							/>
+						))}
 				</div>
+				)}
 				<Pagination
 					data={this.state}
 					handlePreviousClick={this.handlePreviousClick}

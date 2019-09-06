@@ -1,27 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-export default class Tile extends Component {
+export default class TileFavourite extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			pokemon: [],
 			frontCard: true,
-			liked: false,
 			cardClasses: [ 'card' ]
 		};
 		this.flipCard = this.flipCard.bind(this);
-		this.handleFavourite = this.handleFavourite.bind(this);
-	}
-
-	checkIfPokemonIsFav(pokemon) {
-		const pokemonsFavourited = this.props.likedPokemons;
-		if (
-			pokemonsFavourited.find((poke) => {
-				return poke.name === pokemon.name;
-			})
-		)
-			this.setState({ liked: true });
 	}
 
 	flipCard() {
@@ -30,21 +18,8 @@ export default class Tile extends Component {
 		else this.setState({ cardClasses: [ 'card' ] });
 	}
 
-	handleFavourite = (e) => {
-		if (this.state.liked) {
-			this.props.removeFavouritePokemon(e, this.state.pokemon);
-			this.setState({ liked: false });
-		} else {
-			this.props.addFavouritePokemon(e, this.state.pokemon);
-			if (!this.state.liked) this.setState({ liked: true });
-		}
-	};
-
 	componentDidMount() {
-		axios.get(`${this.props.data.url}`).then((res) => {
-			this.setState({ pokemon: res.data });
-			this.checkIfPokemonIsFav(this.state.pokemon);
-		});
+		this.setState({ pokemon: this.props.data });
 	}
 
 	render() {
@@ -52,12 +27,6 @@ export default class Tile extends Component {
 		let cardClasses = this.state.cardClasses.join(' ');
 		return (
 			<div className="card-plus-heart">
-				{this.state.liked ? (
-					<i className="fa fa-heart fa-lg" onClick={this.handleFavourite} />
-				) : (
-					<i className="fa fa-heart-o fa-lg" onClick={this.handleFavourite} />
-				)}
-
 				<div className={cardClasses} onClick={this.flipCard}>
 					{pokemon.sprites &&
 					pokemon.types &&
