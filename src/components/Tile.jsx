@@ -57,9 +57,9 @@ export default class Tile extends Component {
 			<div className="card-plus-heart">
 				{/* coeur différent si le Pokemon est en favori ou non */}
 				{this.state.liked ? (
-					<i className="fa fa-heart fa-lg" onClick={this.handleFavourite} />
+					<i className="fa fa-heart fa-sm" onClick={this.handleFavourite} />
 				) : (
-					<i className="fa fa-heart-o fa-lg" onClick={this.handleFavourite} />
+					<i className="fa fa-heart-o fa-sm" onClick={this.handleFavourite} />
 				)}
 
 				<div className={cardClasses} onClick={this.flipCard}>
