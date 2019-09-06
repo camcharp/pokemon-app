@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+// components
 import Header from './Header';
 import Pagination from './Pagination';
 import Tile from './Tile';
 import TileFavourite from './TileFavourite';
-import axios from 'axios';
 
 export default class Board extends Component {
 	constructor(props) {
@@ -13,7 +15,7 @@ export default class Board extends Component {
 			likedPokemons: [],
 			next: null,
 			previous: null,
-			view: 1
+			view: 1 // "page" Pokemons:1, "page" Favoris:2
 		};
 		this.getNewPokemons = this.getNewPokemons.bind(this);
 		this.changeView = this.changeView.bind(this);
@@ -31,21 +33,19 @@ export default class Board extends Component {
 		});
 	}
 
+	changeView(e) {
+		e.preventDefault();
+		if (this.state.view === 1) {
+			this.setState({ view: 2 }); // page Favoris
+		} else if (this.state.view === 2) {
+			this.setState({ view: 1 }); // page Pokemons
+		}
+	}
+
 	handlePreviousClick(e) {
 		e.preventDefault();
 		axios.get(this.state.previous).then((res) => this.getNewPokemons(res));
 		this.setState({ state: this.state });
-	}
-
-	changeView(e) {
-		e.preventDefault();
-		if (this.state.view === 1) {
-			console.log('state' + this.state.view);
-			this.setState({ view: 2 });
-		} else if (this.state.view === 2) {
-			this.setState({ view: 1 });
-			console.log('state' + this.state.view);
-		}
 	}
 
 	handleNextClick(e) {
@@ -73,7 +73,6 @@ export default class Board extends Component {
 	};
 
 	componentDidMount() {
-		// get Pokemons from API
 		axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`).then((res) => {
 			this.setState({ pokemons: res.data.results, next: res.data.next, previous: res.data.previous });
 			this.getNewPokemons(res);
@@ -90,6 +89,7 @@ export default class Board extends Component {
 					handleNextClick={this.handleNextClick}
 				/>
 				<div className="big-container">
+					{/* Page Pokemons */}
 					{this.state.view === 1 &&
 						this.state.pokemons.map((pokemon) => (
 							<Tile
@@ -100,6 +100,7 @@ export default class Board extends Component {
 								removeFavouritePokemon={this.removeFavouritePokemon}
 							/>
 						))}
+					{/* Page Favoris */}
 					{this.state.view === 2 &&
 						this.state.likedPokemons &&
 						this.state.likedPokemons.map((pokemon) => (
@@ -111,7 +112,11 @@ export default class Board extends Component {
 								removeFavouritePokemon={this.removeFavouritePokemon}
 							/>
 						))}
-					{this.state.view === 2 && this.state.likedPokemons.length === 0 && <h1 className="no-fav-yet">Sorry, you have no favourite Pokemon yet.</h1>}
+					{/* Page Favoris si l'utilisateur n'a pas encore mis de Pokemon en favori */}
+					{this.state.view === 2 &&
+					this.state.likedPokemons.length === 0 && (
+						<h1 className="no-fav-yet">Sorry, you have no favourite Pokemon yet.</h1>
+					)}
 				</div>
 				<Pagination
 					data={this.state}
