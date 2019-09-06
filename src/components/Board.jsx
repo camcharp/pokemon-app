@@ -83,11 +83,13 @@ export default class Board extends Component {
 		return (
 			<div className="page-wrapper">
 				<Header changeView={this.changeView} />
-				<Pagination
-					data={this.state}
-					handlePreviousClick={this.handlePreviousClick}
-					handleNextClick={this.handleNextClick}
-				/>
+				{this.state.view === 1 && (
+					<Pagination
+						data={this.state}
+						handlePreviousClick={this.handlePreviousClick}
+						handleNextClick={this.handleNextClick}
+					/>
+				)}
 				<div className="big-container">
 					{/* Page Pokemons */}
 					{this.state.view === 1 &&
@@ -118,11 +120,13 @@ export default class Board extends Component {
 						<h1 className="no-fav-yet">Sorry, you have no favourite Pokemon yet.</h1>
 					)}
 				</div>
-				<Pagination
-					data={this.state}
-					handlePreviousClick={this.handlePreviousClick}
-					handleNextClick={this.handleNextClick}
-				/>
+				{this.state.view === 1 && (
+					<Pagination
+						data={this.state}
+						handlePreviousClick={this.handlePreviousClick}
+						handleNextClick={this.handleNextClick}
+					/>
+				)}
 			</div>
 		);
 	}

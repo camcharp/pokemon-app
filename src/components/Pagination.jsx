@@ -7,10 +7,10 @@ export default function Pagination(props) {
 				<div className="center">
 					<div className="pagination">
 						<a href={props.data.previous} className="previous" onClick={props.handlePreviousClick}>
-							&laquo;
+							&laquo; Previous Pokemons
 						</a>
 						<a href={props.data.next} className="next" onClick={props.handleNextClick}>
-							&raquo;
+							Next Pokemons &raquo; 
 						</a>
 					</div>
 				</div>

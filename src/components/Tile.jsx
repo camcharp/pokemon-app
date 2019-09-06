@@ -5,16 +5,17 @@ export default class Tile extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			pokemon: [],
+			pokemon: [], // Pokemon de la carte
 			frontCard: true,
-			liked: false,
+			liked: false, // mis en favori ?
 			cardClasses: [ 'card' ]
 		};
 		this.flipCard = this.flipCard.bind(this);
 		this.handleFavourite = this.handleFavourite.bind(this);
 	}
 
-	checkIfPokemonIsFav(pokemon) {
+	// vérifier si le Pokemon a été mis en favori
+	checkIfPokemonIsLiked(pokemon) {
 		const pokemonsFavourited = this.props.likedPokemons;
 		if (
 			pokemonsFavourited.find((poke) => {
@@ -24,12 +25,14 @@ export default class Tile extends Component {
 			this.setState({ liked: true });
 	}
 
+	// ajouter une classe quand la carte est retournée, pour l'effet
 	flipCard() {
 		this.setState({ frontCard: !this.state.frontCard });
 		if (this.state.frontCard === true) this.setState({ cardClasses: [ 'card', 'flipped' ] });
 		else this.setState({ cardClasses: [ 'card' ] });
 	}
 
+	// ajouter/enlèver le statut "favori"
 	handleFavourite = (e) => {
 		if (this.state.liked) {
 			this.props.removeFavouritePokemon(e, this.state.pokemon);
@@ -43,7 +46,7 @@ export default class Tile extends Component {
 	componentDidMount() {
 		axios.get(`${this.props.data.url}`).then((res) => {
 			this.setState({ pokemon: res.data });
-			this.checkIfPokemonIsFav(this.state.pokemon);
+			this.checkIfPokemonIsLiked(this.state.pokemon);
 		});
 	}
 
@@ -52,6 +55,7 @@ export default class Tile extends Component {
 		let cardClasses = this.state.cardClasses.join(' ');
 		return (
 			<div className="card-plus-heart">
+				{/* coeur différent si le Pokemon est en favori ou non */}
 				{this.state.liked ? (
 					<i className="fa fa-heart fa-lg" onClick={this.handleFavourite} />
 				) : (
@@ -59,6 +63,7 @@ export default class Tile extends Component {
 				)}
 
 				<div className={cardClasses} onClick={this.flipCard}>
+					{/* vérifier que toutes les infos soient chargées */}
 					{pokemon.sprites &&
 					pokemon.types &&
 					pokemon.stats &&
@@ -71,6 +76,7 @@ export default class Tile extends Component {
 							<div className="pokemon-stats" />
 						</div>
 					)}
+					{/* carte vue de dos */}
 					{!this.state.frontCard && (
 						<div className="face back">
 							<div className="img-back">
