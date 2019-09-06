@@ -7,20 +7,22 @@
 	color: inherit;
 }
 
-.icons {
-	font-family: sans-serif;
-}
-
 .fa {
 	cursor: pointer;
 	font-size: 3rem;
 	align-self: flex-end;
-	margin: 0 10% 1% 0%;
+	margin: 0 5% 1% 0%;
 	color: indianred;
+	text-shadow: 2px -1px 5px rgba(206, 89, 55, 0.40);
+	/* pencher le cœur */
+	transform: rotate(9deg);
+	-moz-transform: rotate(9deg);
+	-webkit-transform: rotate(9deg);
+	-khtml-transform: rotate(9deg);
+	-ms-transform: rotate(9deg);
 }
 
 /*                 POKEMON CARD                       */
-
 .big-container {
 	display: flex;
 	flex-direction: row;
