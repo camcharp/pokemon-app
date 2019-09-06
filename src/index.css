@@ -119,6 +119,9 @@
 	height: 100px;
 }
 
+.no-fav-yet {
+	text-align: center;
+}
 /*                 PAGINATION                      */
 
 .center {
@@ -127,6 +130,7 @@
 
 .pagination {
 	display: inline-block;
+	margin-bottom: 2%;
 }
 
 .pagination a {
@@ -152,6 +156,7 @@
 .header {
 	background-color: indianred;
 	padding: 1%;
+	margin-bottom: 5%;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;

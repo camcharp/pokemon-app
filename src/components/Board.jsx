@@ -31,13 +31,6 @@ export default class Board extends Component {
 		});
 	}
 
-	componentDidMount() {
-		axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`).then((res) => {
-			this.setState({ pokemons: res.data.results, next: res.data.next, previous: res.data.previous });
-			this.getNewPokemons(res);
-		});
-	}
-
 	handlePreviousClick(e) {
 		e.preventDefault();
 		axios.get(this.state.previous).then((res) => this.getNewPokemons(res));
@@ -79,9 +72,15 @@ export default class Board extends Component {
 		this.setState({ likedPokemons: likedPokemonsCopy });
 	};
 
-	render() {
-		console.log(this.state.view);
+	componentDidMount() {
+		// get Pokemons from API
+		axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`).then((res) => {
+			this.setState({ pokemons: res.data.results, next: res.data.next, previous: res.data.previous });
+			this.getNewPokemons(res);
+		});
+	}
 
+	render() {
 		return (
 			<div className="page-wrapper">
 				<Header changeView={this.changeView} />
@@ -106,14 +105,14 @@ export default class Board extends Component {
 						this.state.likedPokemons.map((pokemon) => (
 							<TileFavourite
 								likedPokemons={this.state.likedPokemons}
-								key={pokemon.url}
+								key={pokemon.name}
 								data={pokemon}
 								addFavouritePokemon={this.addFavouritePokemon}
 								removeFavouritePokemon={this.removeFavouritePokemon}
 							/>
 						))}
+					{this.state.view === 2 && this.state.likedPokemons.length === 0 && <h1 className="no-fav-yet">Sorry, you have no favourite Pokemon yet.</h1>}
 				</div>
-				)}
 				<Pagination
 					data={this.state}
 					handlePreviousClick={this.handlePreviousClick}
