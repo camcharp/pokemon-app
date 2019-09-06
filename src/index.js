@@ -11,8 +11,8 @@ import 'font-awesome/css/font-awesome.min.css';
 ReactDOM.render(
 	<BrowserRouter>
 		<App />
-		<Route exact path="/" component={Board} />
-		<Route path="/fav" component={FavouritePokemons} />
+		<Route exact path="/" render={(props) => <Board {...props} view={1} />} />
+		<Route exact path="/fav" render={(props) => <Board {...props} view={2} />} />
 	</BrowserRouter>,
 	document.getElementById('root')
 );
