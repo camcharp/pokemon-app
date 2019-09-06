@@ -13,25 +13,11 @@
 
 .fa {
 	cursor: pointer;
+	font-size: 3rem;
+	align-self: flex-end;
+	margin: 0 10% 1% 0%;
+	color: indianred;
 }
-
-/* .page-wrapper {
-	max-width: 960px;
-	margin: 0 auto;
-	background-color: pink;
-	display: flex;
-	flex-direction: column;
-	z-index: 0;
-} */
-
-/*                   APP                              */
-/* .App {
-	position: fixed;
-	top: 0;
-	left: 0;
-	margin: auto;
-	width: 100%;
-} */
 
 /*                 POKEMON CARD                       */
 
@@ -43,6 +29,13 @@
 	margin: 5%;
 }
 
+.card-plus-heart {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 2%;
+}
+
 .card {
 	width: 250px;
 	height: 350px;
@@ -52,7 +45,6 @@
 	transition: transform .7s;
 	transform-style: preserve-3d;
 	position: relative;
-	padding: 5px;
 	margin: 1%;
 }
 

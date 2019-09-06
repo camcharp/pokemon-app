@@ -7,17 +7,21 @@ export default class Tile extends Component {
 		this.state = {
 			pokemon: [],
 			frontCard: true,
-			cardClasses: [ 'card' ],
-			liked: false
+			liked: false,
+			cardClasses: [ 'card' ]
 		};
 		this.flipCard = this.flipCard.bind(this);
 		this.handleFavourite = this.handleFavourite.bind(this);
 	}
 
-	componentDidMount() {
-		axios.get(`${this.props.data.url}`).then((res) => {
-			this.setState({ pokemon: res.data });
-		});
+	checkIfPokemonIsFav(pokemon) {
+		const pokemonsFavourited = this.props.likedPokemons;
+		if (
+			pokemonsFavourited.find((poke) => {
+				return poke.name === pokemon.name;
+			})
+		)
+			this.setState({ liked: true });
 	}
 
 	flipCard() {
@@ -27,25 +31,31 @@ export default class Tile extends Component {
 	}
 
 	handleFavourite = (e) => {
-		console.log('handleFavourite called');
 		if (this.state.liked) {
 			this.props.removeFavouritePokemon(e, this.state.pokemon);
 			this.setState({ liked: false });
 		} else {
 			this.props.addFavouritePokemon(e, this.state.pokemon);
-			this.setState({ liked: true });
+			if (!this.state.liked) this.setState({ liked: true });
 		}
 	};
 
+	componentDidMount() {
+		axios.get(`${this.props.data.url}`).then((res) => {
+			this.setState({ pokemon: res.data });
+			this.checkIfPokemonIsFav(this.state.pokemon);
+		});
+	}
+	
 	render() {
 		const pokemon = this.state.pokemon;
 		let cardClasses = this.state.cardClasses.join(' ');
 		return (
-			<React.Fragment>
+			<div className='card-plus-heart'>
 				{this.state.liked ? (
-					<i className="fa fa-heart" onClick={this.handleFavourite} />
+					<i className="fa fa-heart fa-lg" onClick={this.handleFavourite} />
 				) : (
-					<i className="fa fa-heart-o" onClick={this.handleFavourite} />
+					<i className="fa fa-heart-o fa-lg" onClick={this.handleFavourite} />
 				)}
 
 				<div className={cardClasses} onClick={this.flipCard}>
@@ -65,7 +75,7 @@ export default class Tile extends Component {
 						<div className="face back">
 							<div className="img-back">
 								<img src={pokemon.sprites.front_default} alt="pokemon-sprite" />
-								<img src={pokemon.sprites.back_default} alt="pokemon-sprite" />
+								<img src={pokemon.sprites.back_default} alt="pokemon-sprite-back" />
 							</div>
 							<h1 className="pokemon-name">{pokemon.name}</h1>
 							<p className="pokemon-type">{pokemon.types[0].type.name} </p>
@@ -77,14 +87,12 @@ export default class Tile extends Component {
 								))}
 							</div>
 							<div className="pokemon-move">
-								{pokemon.moves ? (
-									<p className="move">special move: {pokemon.moves[0].move.name}</p>
-								) : null}
+								<p className="move">special move: {pokemon.moves[0].move.name}</p>
 							</div>
 						</div>
 					)}
 				</div>
-			</React.Fragment>
+			</div>
 		);
 	}
 }
