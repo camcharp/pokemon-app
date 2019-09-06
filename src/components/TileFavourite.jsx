@@ -4,7 +4,7 @@ export default class TileFavourite extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			pokemon: [],
+			pokemon: [], // pokemon de la carte
 			frontCard: true,
 			cardClasses: [ 'card' ]
 		};
@@ -27,6 +27,7 @@ export default class TileFavourite extends Component {
 		return (
 			<div className="card-plus-heart">
 				<div className={cardClasses} onClick={this.flipCard}>
+					{/* carte vue de face + vérifier que les informations sont chargées */}
 					{pokemon.sprites &&
 					pokemon.types &&
 					pokemon.stats &&
@@ -39,6 +40,7 @@ export default class TileFavourite extends Component {
 							<div className="pokemon-stats" />
 						</div>
 					)}
+					{/* carte vue de dos */}
 					{!this.state.frontCard && (
 						<div className="face back">
 							<div className="img-back">
