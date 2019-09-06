@@ -8,7 +8,6 @@ export default class Board extends Component {
 		super(props);
 		this.state = {
 			pokemons: [],
-			pokemonsLoaded: [],
 			likedPokemons: [],
 			next: null,
 			previous: null
@@ -21,22 +20,11 @@ export default class Board extends Component {
 	}
 
 	getNewPokemons(res) {
-		let pokemonsLoadedCopy = [ ...this.state.pokemonsLoaded ];
-		console.log(this.state.pokemons);
-		console.log(this.state.pokemonsLoaded);
-		console.log(pokemonsLoadedCopy);
-		if (!this.state.pokemonsLoaded.includes(this.state.pokemons)) {
-			pokemonsLoadedCopy.push(this.state.pokemons);
-			this.setState({ pokemonsLoaded: pokemonsLoadedCopy });
-		}
 		this.setState({
 			pokemons: res.data.results,
 			next: res.data.next,
 			previous: res.data.previous
 		});
-		console.log('this.state.pokemons' + JSON.stringify(this.state.pokemons));
-		console.log('this.state.pokemonsLoaded' + JSON.stringify(this.state.pokemonsLoaded));
-		console.log('copy' + pokemonsLoadedCopy);
 	}
 
 	componentDidMount() {
@@ -60,21 +48,23 @@ export default class Board extends Component {
 
 	addFavouritePokemon = (e, pokemon) => {
 		e.preventDefault();
-		let likedPokemonsCopy = [ ...this.state.likedPokemons ];
-		if (!likedPokemonsCopy.includes(pokemon)) likedPokemonsCopy.push(pokemon);
+		const likedPokemonsCopy = [ ...this.state.likedPokemons ];
+		if (!likedPokemonsCopy.some((p) => p.name === pokemon.name)) likedPokemonsCopy.push(pokemon);
 		this.setState({ likedPokemons: likedPokemonsCopy });
 	};
 
 	removeFavouritePokemon = (e, pokemon) => {
 		e.preventDefault();
 		let likedPokemonsCopy = [ ...this.state.likedPokemons ];
-		let index = likedPokemonsCopy.indexOf(pokemon); // find pokemon in array
-		if (index > -1) likedPokemonsCopy.splice(index, 1);
+		for (let i = 0; i < likedPokemonsCopy.length; i++) {
+			if (likedPokemonsCopy[i].name === pokemon.name) {
+				likedPokemonsCopy.splice(likedPokemonsCopy[i], 1);
+			}
+		}
 		this.setState({ likedPokemons: likedPokemonsCopy });
 	};
 
 	render() {
-		console.log(this.state);
 		return (
 			<div className="page-wrapper">
 				<Pagination
@@ -85,7 +75,8 @@ export default class Board extends Component {
 				<div className="big-container">
 					{this.state.pokemons.map((pokemon) => (
 						<Tile
-							key={pokemon.name}
+							likedPokemons={this.state.likedPokemons}
+							key={pokemon.url}
 							data={pokemon}
 							addFavouritePokemon={this.addFavouritePokemon}
 							removeFavouritePokemon={this.removeFavouritePokemon}
