@@ -18,7 +18,8 @@ export default class Board extends Component {
 			view: 1 // "page" Pokemons:1, "page" Favoris:2
 		};
 		this.getNewPokemons = this.getNewPokemons.bind(this);
-		this.changeView = this.changeView.bind(this);
+		this.goToPokemonsPage = this.goToPokemonsPage.bind(this);
+		this.goToFavouritesPage = this.goToFavouritesPage.bind(this);
 		this.handlePreviousClick = this.handlePreviousClick.bind(this);
 		this.handleNextClick = this.handleNextClick.bind(this);
 		this.addFavouritePokemon = this.addFavouritePokemon.bind(this);
@@ -33,13 +34,14 @@ export default class Board extends Component {
 		});
 	}
 
-	changeView(e) {
+	goToPokemonsPage(e) {
 		e.preventDefault();
-		if (this.state.view === 1) {
-			this.setState({ view: 2 }); // page Favoris
-		} else if (this.state.view === 2) {
-			this.setState({ view: 1 }); // page Pokemons
-		}
+		this.setState({view : 1})
+	}
+
+	goToFavouritesPage(e) {
+		e.preventDefault();
+		this.setState({view : 2})
 	}
 
 	handlePreviousClick(e) {
@@ -82,7 +84,7 @@ export default class Board extends Component {
 	render() {
 		return (
 			<div className="page-wrapper">
-				<Header changeView={this.changeView} />
+				<Header goToPokemonsPage={this.goToPokemonsPage} goToFavouritesPage={this.goToFavouritesPage} />
 				{this.state.view === 1 && (
 					<Pagination
 						data={this.state}
