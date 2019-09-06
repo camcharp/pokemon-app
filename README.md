@@ -1,11 +1,3 @@
-- Display a paginated list of pokemon names with data from https://pokeapi.co/api/v2/pokemon.
-- React must be used for the exercise, Redux is a plus butcnot required.
-- List items should be displayed as tiles instead of table.
-- When user clicks on an item, more detailed information about the pokemon should be displayed. The detailed information is available at https://pokeapi.co/api/v2/pokemon/{{pokemonName}}. Information to be displayed could be: its picture, stats, type, abilities, etc.
-
-- Bonus : Add an “Add to my collection” button to add a pokemon to my (favorite) collection.
-
-
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
