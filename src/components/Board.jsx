@@ -17,44 +17,37 @@ export default class Board extends Component {
 			previous: null,
 			view: 1 // "page" Pokemons:1, "page" Favoris:2
 		};
-		this.getNewPokemons = this.getNewPokemons.bind(this);
-		this.goToPokemonsPage = this.goToPokemonsPage.bind(this);
-		this.goToFavouritesPage = this.goToFavouritesPage.bind(this);
-		this.handlePreviousClick = this.handlePreviousClick.bind(this);
-		this.handleNextClick = this.handleNextClick.bind(this);
-		this.addFavouritePokemon = this.addFavouritePokemon.bind(this);
-		this.removeFavouritePokemon = this.removeFavouritePokemon.bind(this);
 	}
 
-	getNewPokemons(res) {
+	getNewPokemons = (res) => {
 		this.setState({
 			pokemons: res.data.results,
 			next: res.data.next,
 			previous: res.data.previous
 		});
-	}
+	};
 
-	goToPokemonsPage(e) {
+	goToPokemonsPage = (e) => {
 		e.preventDefault();
-		this.setState({view : 1})
-	}
+		this.setState({ view: 1 });
+	};
 
-	goToFavouritesPage(e) {
+	goToFavouritesPage = (e) => {
 		e.preventDefault();
-		this.setState({view : 2})
-	}
+		this.setState({ view: 2 });
+	};
 
-	handlePreviousClick(e) {
+	handlePreviousClick = (e) => {
 		e.preventDefault();
 		axios.get(this.state.previous).then((res) => this.getNewPokemons(res));
 		this.setState({ state: this.state });
-	}
+	};
 
-	handleNextClick(e) {
+	handleNextClick = (e) => {
 		e.preventDefault();
 		axios.get(this.state.next).then((res) => this.getNewPokemons(res));
 		this.setState({ state: this.state });
-	}
+	};
 
 	addFavouritePokemon = (e, pokemon) => {
 		e.preventDefault();
